@@ -9,13 +9,13 @@
   --wrap:1080px; --font:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Arabic",Tahoma,Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:var(--font);color:var(--ink);background:#fff;line-height:1.6;font-size:16px;overflow-x:hidden}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;font-size:93.75%}
+body{font-family:var(--font);color:var(--ink);background:#fff;line-height:1.6;font-size:1rem;overflow-x:hidden}
 img{max-width:100%;display:block}
 h1,h2,h3{line-height:1.28;font-weight:800}
-h1{font-size:clamp(1.75rem,7vw,2.9rem)}
-h2{font-size:clamp(1.4rem,5.4vw,2.1rem)}
-h3{font-size:clamp(1.05rem,3.4vw,1.25rem)}
+h1{font-size:clamp(1.55rem,6vw,2.5rem)}
+h2{font-size:clamp(1.25rem,4.7vw,1.85rem)}
+h3{font-size:clamp(1rem,3vw,1.15rem)}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 18px}
 .eyebrow{display:inline-block;font-size:.78rem;font-weight:800;color:var(--green)}
 .lead{font-size:1.02rem;color:var(--muted)}
@@ -27,9 +27,11 @@ section{padding:44px 0}
 .bg-white{background:#fff}.bg-mint{background:var(--mint-2)}.bg-paper{background:var(--paper)}
 .bg-dark{background:var(--grad-dark);color:#fff}
 .bg-dark h2,.bg-dark h3,.bg-dark h4{color:#fff}.bg-dark .lead{color:#c7e2d1}
+/* Section Offres : vert menthe plus soutenu, distinct des autres bg-mint */
+#offres{background:#dcefe1}
 
-.logo{display:inline-flex;align-items:center;gap:8px;font-weight:900;font-size:1.18rem;color:var(--green-d);text-decoration:none;direction:ltr}
-.logo svg{height:27px;width:auto;flex:none}.logo.on-dark{color:#fff}
+.logo{display:inline-flex;align-items:center;gap:7px;font-weight:900;font-size:1.02rem;color:var(--green-d);text-decoration:none;direction:ltr}
+.logo svg{height:22px;width:auto;flex:none}.logo.on-dark{color:#fff}
 
 header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:58px}
@@ -277,7 +279,7 @@ img{content-visibility:auto}
   .hero{padding:16px 0 28px}
   .hero-photo{aspect-ratio:1/1;max-height:46vh;margin-bottom:16px}
   .hero-photo img{object-position:center 30%}
-  .hero h1{font-size:1.95rem;line-height:1.25}
+  .hero h1{font-size:1.72rem;line-height:1.25}
   .hero .sub{font-size:1rem;margin-top:8px}
   .trust-row{gap:6px;margin-top:12px}
   .chip{font-size:.76rem;padding:6px 10px}
@@ -311,7 +313,7 @@ img{content-visibility:auto}
 /* Très petits écrans */
 @media(max-width:360px){
   body{font-size:15px}
-  .hero h1{font-size:1.75rem}
+  .hero h1{font-size:1.55rem}
   .tier .tnow{font-size:1.7rem}
 }
 
@@ -429,4 +431,68 @@ img{content-visibility:auto}
   .tier.open .tier-thumbs{display:none}
   .tier-thumbs img{width:42px;height:42px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:9px;padding:2px}
   .tier-toggle{margin-top:10px;padding:9px;font-size:.88rem}
+}
+
+/* ============================================================
+   Offres — liste sélectionnable (style « sélecteur de produit »)
+   Scopé #offres : la spécificité #id l'emporte sur les anciennes règles .tier
+   ============================================================ */
+#offres .tiers{display:flex;flex-direction:column;gap:0;max-width:600px;margin:0 auto;
+  background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+#offres .tier{position:relative;display:block;background:#fff;border:0;border-top:1px solid var(--line);
+  border-radius:0;padding:0;box-shadow:none;transform:none;cursor:pointer;transition:background .15s}
+#offres .tier:first-child{border-top:0}
+#offres .tier:hover{background:#fafcfb}
+#offres .tier.sel{background:var(--mint-2)}
+#offres .tier.sel::before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:3px;background:var(--green)}
+#offres .tier-head{display:flex;align-items:center;gap:14px;padding:14px 16px}
+#offres .tier-img{flex:none;width:74px;height:74px;object-fit:contain;background:#f3f6f4;border-radius:12px;padding:6px}
+#offres .tier-img.box{display:flex;align-items:center;justify-content:center;color:var(--green)}
+#offres .tier-img.box svg{width:34px;height:34px}
+#offres .tier-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+#offres .tier-tag{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:700;color:var(--muted)}
+#offres .tier-tag .tdot{width:9px;height:9px;border-radius:50%;background:#b79ad6;flex:none}
+#offres .tier:nth-child(1) .tdot{background:#8fb4e0}
+#offres .tier:nth-child(4) .tdot{background:#e0a06a}
+#offres .tier:nth-child(5) .tdot{background:#d98aa6}
+#offres .tier.reco .tdot{background:var(--green-3)}
+#offres .tier-tag .tier-hot{margin-inline-start:6px;background:var(--grad);color:#fff;
+  font-size:.64rem;font-weight:800;padding:2px 8px;border-radius:999px}
+#offres .tier h3{font-size:1.12rem;margin:2px 0;font-weight:800;color:var(--ink);line-height:1.2}
+#offres .tier.sel h3{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:2px}
+#offres .tier .tprice{display:flex;align-items:baseline;gap:8px;margin:1px 0 0;flex-wrap:wrap}
+#offres .tier .told{text-decoration:line-through;color:var(--muted);font-size:.82rem;direction:ltr}
+#offres .tier .tnow{color:var(--green-d);font-weight:900;font-size:1.18rem;line-height:1;direction:ltr}
+#offres .tier .tnow small{font-size:.7rem;font-weight:800}
+#offres .tier-radio{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);
+  display:flex;align-items:center;justify-content:center;color:#fff;transition:.15s}
+#offres .tier-radio svg{width:13px;height:13px;opacity:0;transition:.15s}
+#offres .tier.sel .tier-radio{background:var(--green);border-color:var(--green)}
+#offres .tier.sel .tier-radio svg{opacity:1}
+/* toggle « lire la suite » = petit lien sous le prix */
+#offres .tier-toggle{display:inline-flex !important;align-items:center;gap:5px;width:auto;
+  margin:5px 0 0;padding:0;background:none;border:0;color:var(--green);font-weight:700;
+  font-size:.8rem;cursor:pointer;font-family:inherit}
+#offres .tier-toggle:active{background:none}
+#offres .tier-toggle svg{width:15px;height:15px;transition:transform .2s}
+#offres .tier.open .tier-toggle svg{transform:rotate(180deg)}
+#offres .tier-more{display:none;padding-block:0 14px;padding-inline-start:104px;padding-inline-end:16px}
+#offres .tier.open .tier-more{display:block;animation:fade .2s ease}
+#offres .tier .tlabel{font-size:.72rem;font-weight:800;color:var(--muted);margin-top:8px}
+#offres .tier .tlist{list-style:none;display:grid;gap:7px;margin:5px 0 0}
+#offres .tier .tlist li{display:flex;gap:8px;align-items:center;font-size:.86rem}
+#offres .tier .tlist li svg{flex:none;width:16px;height:16px;color:var(--green)}
+#offres .tier .tlist li.prod .pthumb{flex:none;width:34px;height:34px;object-fit:contain;
+  padding:2px;border-radius:8px;background:#fff;border:1px solid var(--line)}
+/* bouton unique de commande sous la liste */
+.tiers-cta{max-width:600px;margin:16px auto 0}
+.tiers-cta .btn{width:100%}
+.tiers-cta .tctv{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:9px;
+  font-size:.78rem;color:var(--muted);font-weight:600}
+.tiers-cta .tctv svg{width:14px;height:14px;color:var(--green);flex:none}
+@media(min-width:600px){
+  #offres .tier-img{width:84px;height:84px}
+  #offres .tier h3{font-size:1.2rem}
+  #offres .tier .tnow{font-size:1.3rem}
+  #offres .tier-more{padding-inline-start:114px}
 }

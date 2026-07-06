@@ -82,15 +82,40 @@
   document.querySelectorAll('.js-close').forEach(function(b){ b.addEventListener('click', closeModal); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
 
-  /* Toggle "اقرأ المزيد" sur mobile (déplie la carte d'offre) */
+  /* Toggle "اقرأ المزيد" (déplie le détail de l'offre) */
   document.querySelectorAll('.tier-toggle').forEach(function(b){
-    b.addEventListener('click', function(){
+    b.addEventListener('click', function(e){
+      e.stopPropagation();
       var t = b.closest('.tier');
       var open = t.classList.toggle('open');
       var lab = b.querySelector('.tt-label');
       if(lab) lab.textContent = open ? 'قلّل' : 'اقرأ المزيد';
     });
   });
+
+  /* ---------- Offres : sélection d'une ligne + bouton unique de commande ---------- */
+  var tiersWrap = document.querySelector('#offres .tiers');
+  if(tiersWrap){
+    var tierEls = tiersWrap.querySelectorAll('.tier');
+    function selectTier(t){
+      tierEls.forEach(function(x){ x.classList.remove('sel'); x.setAttribute('aria-pressed','false'); });
+      t.classList.add('sel'); t.setAttribute('aria-pressed','true');
+    }
+    tierEls.forEach(function(t){
+      t.addEventListener('click', function(){ selectTier(t); });
+      t.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); selectTier(t); }
+      });
+    });
+    var orderBtn = document.querySelector('.js-order-selected');
+    if(orderBtn){
+      orderBtn.addEventListener('click', function(){
+        var sel = tiersWrap.querySelector('.tier.sel') || tierEls[0];
+        if(!sel) return;
+        openModal(sel.getAttribute('data-pack'), sel.getAttribute('data-products'));
+      });
+    }
+  }
 
   function normTel(v){ return v.replace(/[\s().-]/g,''); }
   function validTel(v){ v=normTel(v); return /^0[67]\d{8}$/.test(v) || /^(\+?212)[67]\d{8}$/.test(v); }

@@ -158,8 +158,9 @@ def pinfo_section(products):
     return f'<div class="pinfo-grid n{len(products)}">{cards}</div>'
 
 def tier_html(o):
-    badge=f'<span class="tier-badge">{o["badge"]}</span>' if o['badge'] else ''
-    cls=' reco' if o['reco'] else ''
+    cls=' reco sel' if o['reco'] else ''
+    pressed='true' if o['reco'] else 'false'
+    hot=f'<span class="tier-hot">{o["badge"]}</span>' if o['badge'] else ''
     def prod_li(x):
         name=x.split(' × ')[-1].strip()
         img=IMGOF.get(name)
@@ -168,23 +169,25 @@ def tier_html(o):
     prod=''.join(prod_li(x) for x in o['comp'])
     ben=''.join(f'<li>{CHK} {x}</li>' for x in o['ben'])
     prods_data='~~'.join(f"{IMGOF.get(x.split(' × ')[-1].strip(),'')}::{x}" for x in o['comp'])
-    thumbs=''.join(f'<img src="{IMGOF[nm]}" alt="" loading="lazy">' for nm in [x.split(' × ')[-1].strip() for x in o['comp']] if IMGOF.get(nm))
-    style='' if o['reco'] else ' style="background:#fff;color:var(--green-d);border:1.6px solid var(--green);box-shadow:none"'
-    return f'''<div class="tier{cls}">{badge}
-      <div class="tname">{o['tlabel']}</div>
-      <h3>{o['pname']}</h3>
-      <div class="tsub">{o['dur']} · {o['one']}</div>
-      <div class="tier-thumbs">{thumbs}</div>
-      <div class="tprice"><span class="told">{o['old']} درهم</span><span class="tnow">{o['now']} <small>درهم</small></span></div>
-      <span class="promo">تخفيض -{o['promo']}%</span>
-      <button class="tier-toggle" type="button"><span class="tt-label">اقرأ المزيد</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+    main_name=o['comp'][0].split(' × ')[-1].strip()
+    main_img=IMGOF.get(main_name,'')
+    thumb_main=f'<img class="tier-img" src="{main_img}" alt="{o["pname"]}" loading="lazy">' if main_img else f'<span class="tier-img box">{BOX}</span>'
+    return f'''<div class="tier{cls}" role="button" tabindex="0" aria-pressed="{pressed}" data-pack="{o['pack']}" data-products="{prods_data}">
+      <div class="tier-head">
+        {thumb_main}
+        <div class="tier-info">
+          <span class="tier-tag"><i class="tdot"></i>{o['tlabel']}{hot}</span>
+          <h3>{o['pname']}</h3>
+          <div class="tprice"><span class="told">{o['old']} درهم</span><span class="tnow">{o['now']} <small>درهم</small></span></div>
+          <button class="tier-toggle" type="button"><span class="tt-label">اقرأ المزيد</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        </div>
+        <span class="tier-radio" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+      </div>
       <div class="tier-more">
         <div class="tlabel">المنتجات</div>
         <ul class="tlist">{prod}</ul>
         <div class="tlabel">المزايا</div>
         <ul class="tlist">{ben}</ul>
-        <button class="btn js-open"{style} data-pack="{o['pack']}" data-products="{prods_data}">أطلبي دابا ←</button>
-        <div class="tctv">{CHK} حتا يوصلك عاد خلصي</div>
       </div>
     </div>'''
 
@@ -250,6 +253,10 @@ PAGE='''<!DOCTYPE html>
     <h2 style="margin-top:12px">اختاري العرض ديالكِ</h2>
     <p class="lead" style="margin-top:8px">نفس المرافقة فكل العروض (كوتش + تطبيق هاتفي + توصيل مجاني + حتا يوصلك عاد خلصي).</p></div>
   <div class="tiers{tiers_mod}">{tiers}</div>
+  <div class="tiers-cta">
+    <button class="btn js-order-selected" type="button">أطلبي دابا ←</button>
+    <div class="tctv">{chk} حتا يوصلك عاد خلصي</div>
+  </div>
   <div class="not-sure">
     <button class="js-open" data-pack="غير متأكدة — {plabel} — الكوتش توجّهني" data-desc="{desc}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.7"/><path d="M12 17h.01"/></svg>
