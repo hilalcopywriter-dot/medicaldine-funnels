@@ -27,8 +27,11 @@ section{padding:44px 0}
 .bg-white{background:#fff}.bg-mint{background:var(--mint-2)}.bg-paper{background:var(--paper)}
 .bg-dark{background:var(--grad-dark);color:#fff}
 .bg-dark h2,.bg-dark h3,.bg-dark h4{color:#fff}.bg-dark .lead{color:#c7e2d1}
-/* Section Offres : vert menthe plus soutenu, distinct des autres bg-mint */
-#offres{background:#dcefe1}
+/* Section Offres : fond vert foncé + textes clairs pour rester lisibles */
+#offres{background:#0d3425}
+#offres .section-head h2{color:#fff}
+#offres .section-head .lead{color:#bcd8c8}
+#offres .tiers-cta .tctv{color:#bcd8c8}
 
 .logo{display:inline-flex;align-items:center;gap:7px;font-weight:900;font-size:1.02rem;color:var(--green-d);text-decoration:none;direction:ltr}
 .logo svg{height:22px;width:auto;flex:none}.logo.on-dark{color:#fff}
