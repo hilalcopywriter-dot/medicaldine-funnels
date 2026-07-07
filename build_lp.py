@@ -10,6 +10,16 @@ PACK='https://medicaldine.ma/wp-content/uploads/2025/04/medicaldine-pack2.jpg'
 L7='https://medicaldine.ma/wp-content/uploads/2025/05/medicaldine8-7.jpg'
 L11='https://medicaldine.ma/wp-content/uploads/2025/05/medicaldine8-11.jpg'
 L15='https://medicaldine.ma/wp-content/uploads/2025/05/medicaldine8-15.jpg'
+# Photos produit locales (dossier img/)
+P_BLANC='img/femme-blanc.jpg'        # femme robe blanche + Shar Slim (hero élégant)
+P_SOLEIL='img/femme-soleil.jpg'      # jeune femme coucher de soleil + Shar Slim (hero)
+P_RIAD='img/femme-riad.jpg'          # femme au riad + Shar Slim (paysage, média)
+P_SPORT='img/sport-selfie.jpg'       # selfie salle de sport (résultats / vie)
+P_PACK='img/pack-nature.jpg'         # femme + les 3 produits dans l'herbe (hero pack complet)
+P_SHARCREAM='img/shar-cream.jpg'     # Shar Slim + Belly Cream (nature)
+P_CREAMDRINK='img/cream-drink.jpg'   # Belly Cream + Fat Burn Drink (nature)
+P_CREAMING='img/cream-ingredients.jpg' # Belly Cream + ingrédients naturels
+P_DRINK='img/fat-burn-drink.jpg'     # Burn Fat Drink en main
 
 # Mécanisme réel de chaque produit (doc OTO)
 ROLE={SHAR:'كيرفع معدّل الأيض ويخلي الجسم يحرق الدهون أسرع',
@@ -19,7 +29,7 @@ PNAME={SHAR:'Shar Slim',CREAM:'Belly Cream',DRINK:'Fat Burn Drink'}
 NAME2CONST={v:k for k,v in PNAME.items()}
 # nom produit -> image (vignettes dans les cartes d'offre) — versions contrastées (fond coloré) pour rester visibles en petit
 SHAR_THUMB='https://medicaldine.ma/wp-content/uploads/2025/04/Shar-Slim.jpg'
-IMGOF={'Shar Slim':SHAR_THUMB,'Belly Cream':CREAM,'Fat Burn Drink':DRINK}
+IMGOF={'Shar Slim':SHAR,'Belly Cream':CREAM,'Fat Burn Drink':DRINK}
 
 # Fiche produit : image, fondants (fوائد) et مكوّنات — d'après le doc OTO + pages produits
 PRODUCT_INFO={
@@ -67,14 +77,14 @@ def offer(plabel, tk, pk):
 # Choix 1 : le produit seul (Shar Slim), le moins cher, sans programme — ancre de valeur
 def product_only(plabel):
     return dict(reco=False, tlabel='المنتج بوحدو', badge='', pname='Shar Slim', comp=['1 × Shar Slim'],
-                old=600, now=450, promo=25, ben=['توصيل مجاني','حتا يوصلك عاد خلصي'],
+                old=600, now=400, promo=33, ben=['توصيل مجاني','حتا يوصلك عاد خلصي'],
                 dur='شهر واحد', one='المنتج فقط · بلا كوتش ولا متابعة',
-                pack=f"{plabel} — المنتج بوحدو (Shar Slim) — 450 درهم")
+                pack=f"{plabel} — المنتج بوحدو (Shar Slim) — 400 درهم")
 
 DATA={
 'ventre':{'title':'پاك البطن والأرداف — Medicaldine','kicker':'البطن والأرداف · 3 أشهر','plabel':'البطن',
   'h1':'الكرش مابغاتش تنقص <span>وخا عييتي ما درتي ليها؟</span>','sub':'برنامج كامل لمدة 3 أشهر باش تنقصي دهون الكرش والأرداف، مع كوتش خاصة وتطبيق هاتفي كيتبع معاك خطوة بخطوة.',
-  'hero':L15,'agit_img':L7,'agit_h':'واش هادشي لي واقع ليك دبا؟',
+  'hero':P_BLANC,'agit_img':P_SPORT,'life':P_SHARCREAM,'agit_h':'واش هادشي لي واقع ليك دبا؟',
   'pains':['الكرش مبغاتش تنقص','كتنقصي من جسمك كامل… غير الكرش باقي كيف ما هو','الكرش مرخوفة ومنفوخة','من بعد الولادة… الكرش ما رجعاتش كيف كانت','الدهون متجمعين فالبطن والأرداف وما كيمشيوش','جربتي ريجيمات ومنتجات كثيرة بلا نتيجة'],
   'products':[SHAR,CREAM],
   'offers':[offer('البطن','good','trio'),offer('البطن','better','ventre'),offer('البطن','best','intensive')],
@@ -83,7 +93,7 @@ DATA={
   'vids':V[0:6]},
 'fringales':{'title':'پاك وقف القرم — Medicaldine','kicker':'الشهوة والحلويات · 3 أشهر','plabel':'القرم',
   'h1':'الشهوة للأكل <span>مكتخليكش تزيدي فالوزن؟</span>','sub':'برنامج لمدة 3 أشهر باش تسيطري على الشهوة للأكل، خصوصاً الحلويات، وترجعي تتحكمي فالشهية ديالك، مع كوتش خاصة وتطبيق هاتفي كيتابع معاك خطوة بخطوة.',
-  'hero':L11,'agit_img':L15,'agit_h':'واش هادشي لي كيوقع ليك؟',
+  'hero':P_SOLEIL,'agit_img':P_RIAD,'life':P_CREAMDRINK,'agit_h':'واش هادشي لي كيوقع ليك؟',
   'pains':['كتقاومي طول النهار… وبالليل كتبدا الشهوة فالحلويات','ماشي جوع… غير كتحسي برغبة قوية تاكلي، خصوصاً الحلو','كل مرة كتقولي «غادي نبدأ من جديد»… ولكن نفس الشي كيتعاود','كتحسي أنك فاقدة السيطرة على الشهية ديالك'],
   'products':[SHAR,DRINK],
   'offers':[offer('القرم','good','trio'),offer('القرم','better','stop'),offer('القرم','best','intensive')],
@@ -92,7 +102,7 @@ DATA={
   'vids':V[2:8]},
 'metabolisme':{'title':'پاك إعادة ضبط الأيض — Medicaldine','kicker':'الحرق البطيء · 3 أشهر','plabel':'الأيض',
   'h1':'كتاكلي غير شوية… <span>ولكن مكتنقصيش؟</span>','sub':'برنامج لمدة 3 أشهر كيساعد ينشط الحرق ويعاون الجسم يبدا يحرق الدهون بشكل أفضل، مع كوتش خاصة وتطبيق هاتفي كيتابع معاك يومياً.',
-  'hero':L7,'agit_img':L11,'agit_h':'كتديري كلشي مزيان… والميزان ما كيتحرّك.',
+  'hero':P_PACK,'agit_img':P_SPORT,'life':P_CREAMING,'agit_h':'كتديري كلشي مزيان… والميزان ما كيتحرّك.',
   'pains':['كتاكلي شوية وكتحركي وما كتنقصيش','كتحسي بالنفخة واحتباس الماء','بحال جسمكِ كيخزّن كلشي'],
   'products':[SHAR],
   'offers':[offer('الأيض','good','trio'),offer('الأيض','better','reset'),offer('الأيض','best','intensive')],
@@ -101,7 +111,7 @@ DATA={
   'vids':V[4:10]},
 'transformation':{'title':'برنامج التحول الكامل — Medicaldine','kicker':'التحول الكامل','plabel':'التحول',
   'h1':'بغيتي تنقصي <span>من كل جهة؟</span>','sub':'برنامج كامل كيهاجم من 3 جهات، مع كوتش وتطبيق هاتفي.',
-  'hero':PACK,'agit_img':L7,'agit_h':'جرّبتي بزّاف… وما داز والو.',
+  'hero':P_PACK,'agit_img':P_RIAD,'life':P_CREAMDRINK,'agit_h':'جرّبتي بزّاف… وما داز والو.',
   'pains':['جرّبتي رجيمات بزّاف وحتى وحدة ما دامت','ما عارفاش منين تبدّي: الماكلة؟ الرياضة؟ المكمّلات؟','بغيتي نتيجة، وخصوصاً شي حد يوجّهكِ'],
   'products':[SHAR,DRINK,CREAM],
   'offers':[offer('التحول','better','trio'),offer('التحول','best','intensive')],
@@ -169,9 +179,12 @@ def tier_html(o):
     prod=''.join(prod_li(x) for x in o['comp'])
     ben=''.join(f'<li>{CHK} {x}</li>' for x in o['ben'])
     prods_data='~~'.join(f"{IMGOF.get(x.split(' × ')[-1].strip(),'')}::{x}" for x in o['comp'])
-    main_name=o['comp'][0].split(' × ')[-1].strip()
-    main_img=IMGOF.get(main_name,'')
-    thumb_main=f'<img class="tier-img" src="{main_img}" alt="{o["pname"]}" loading="lazy">' if main_img else f'<span class="tier-img box">{BOX}</span>'
+    # Vignette du pack : une image par produit du pack (grille compacte)
+    pack_names=[x.split(' × ')[-1].strip() for x in o['comp']]
+    pack_imgs=[IMGOF[nm] for nm in pack_names if IMGOF.get(nm)]
+    n_imgs=len(pack_imgs) or 1
+    imgs_html=''.join(f'<img src="{u}" alt="" loading="lazy">' for u in pack_imgs) or BOX
+    thumb_main=f'<div class="tier-imgs" data-count="{n_imgs}">{imgs_html}</div>'
     return f'''<div class="tier{cls}" role="button" tabindex="0" aria-pressed="{pressed}" data-pack="{o['pack']}" data-products="{prods_data}">
       <div class="tier-head">
         {thumb_main}
@@ -381,7 +394,7 @@ for slug,d in DATA.items():
         plabel=d['plabel'],desc=DESC[slug],
         products=products_html(d['products']),pinfo=pinfo_section(pinfo_products),
         tiers=''.join(tier_html(o) for o in offers),tiers_mod=tiers_mod,
-        life11=L11,videos=videos_html(d['vids']),faq=faq_html(d['faq']),
+        life11=d['life'],videos=videos_html(d['vids']),faq=faq_html(d['faq']),
         reco_now=reco['now'])
     open(os.path.join(OUT,f'p-{slug}.html'),'w',encoding='utf-8').write(html)
     print('wrote p-%s.html (%d offres, reco=%s)'%(slug,len(offers),reco['pname']))

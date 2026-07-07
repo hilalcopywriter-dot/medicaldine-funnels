@@ -449,9 +449,14 @@ img{content-visibility:auto}
 #offres .tier.sel{background:var(--mint-2)}
 #offres .tier.sel::before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:3px;background:var(--green)}
 #offres .tier-head{display:flex;align-items:center;gap:14px;padding:14px 16px}
-#offres .tier-img{flex:none;width:74px;height:74px;object-fit:contain;background:#f3f6f4;border-radius:12px;padding:6px}
-#offres .tier-img.box{display:flex;align-items:center;justify-content:center;color:var(--green)}
-#offres .tier-img.box svg{width:34px;height:34px}
+/* Vignette pack : les images des produits du pack, en grille compacte */
+#offres .tier-imgs{flex:none;width:74px;height:74px;background:#f3f6f4;border-radius:12px;padding:5px;display:grid;gap:3px;place-items:center}
+#offres .tier-imgs img{width:100%;height:100%;object-fit:contain;min-width:0;min-height:0}
+#offres .tier-imgs[data-count="2"]{grid-template-columns:1fr 1fr}
+#offres .tier-imgs[data-count="3"]{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+#offres .tier-imgs[data-count="3"] img:first-child{grid-column:1 / span 2}
+#offres .tier-imgs[data-count="4"]{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+#offres .tier-imgs > svg{width:34px;height:34px;color:var(--green)}
 #offres .tier-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
 #offres .tier-tag{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:700;color:var(--muted)}
 #offres .tier-tag .tdot{width:9px;height:9px;border-radius:50%;background:#b79ad6;flex:none}
@@ -494,7 +499,7 @@ img{content-visibility:auto}
   font-size:.78rem;color:var(--muted);font-weight:600}
 .tiers-cta .tctv svg{width:14px;height:14px;color:var(--green);flex:none}
 @media(min-width:600px){
-  #offres .tier-img{width:84px;height:84px}
+  #offres .tier-imgs{width:84px;height:84px}
   #offres .tier h3{font-size:1.2rem}
   #offres .tier .tnow{font-size:1.3rem}
   #offres .tier-more{padding-inline-start:114px}
