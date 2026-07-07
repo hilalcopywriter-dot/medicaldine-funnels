@@ -220,6 +220,24 @@ def faq_html(specific):
         out+=f'<details{op}><summary>{q}</summary><div class="a">{a}</div></details>'
     return out
 
+PIXEL='''<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1338142448259106');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1338142448259106&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->'''
+
 PAGE='''<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -227,6 +245,7 @@ PAGE='''<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{title}</title>
 <meta name="theme-color" content="#1f8f4e">
+{pixel}
 <link rel="preconnect" href="https://medicaldine.ma"><link rel="preconnect" href="https://hercules-cdn.com">
 <link rel="stylesheet" href="styles.css?v={cssver}">
 </head>
@@ -403,7 +422,7 @@ for slug,d in DATA.items():
         products=products_html(d['products']),pinfo=pinfo_section(pinfo_products),
         tiers=''.join(tier_html(o) for o in offers),tiers_mod=tiers_mod,
         life11=d['life'],videos=videos_html(d['vids']),faq=faq_html(d['faq']),
-        reco_now=reco['now'],cssver=CSSVER,jsver=JSVER)
+        reco_now=reco['now'],cssver=CSSVER,jsver=JSVER,pixel=PIXEL)
     open(os.path.join(OUT,f'p-{slug}.html'),'w',encoding='utf-8').write(html)
     print('wrote p-%s.html (%d offres, reco=%s)'%(slug,len(offers),reco['pname']))
 print('done')
