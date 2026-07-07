@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
 # Générateur des 4 landing pages Medicaldine (parcours personnalisé)
-import os
+import os, hashlib
 OUT = os.path.dirname(os.path.abspath(__file__))
+
+def _ver(fname):
+    """Empreinte courte du fichier pour casser le cache navigateur (anti-cache)."""
+    try:
+        return hashlib.md5(open(os.path.join(OUT, fname), 'rb').read()).hexdigest()[:8]
+    except OSError:
+        return '1'
 
 SHAR='https://medicaldine.ma/wp-content/uploads/2026/05/medicaldine6-1.png'
 CREAM='https://medicaldine.ma/wp-content/uploads/2026/05/Untitled-3-e1777773509158.webp'
@@ -221,7 +228,7 @@ PAGE='''<!DOCTYPE html>
 <title>{title}</title>
 <meta name="theme-color" content="#1f8f4e">
 <link rel="preconnect" href="https://medicaldine.ma"><link rel="preconnect" href="https://hercules-cdn.com">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v={cssver}">
 </head>
 <body class="has-mcta">
 
@@ -363,7 +370,7 @@ PAGE='''<!DOCTYPE html>
   </div>
 </div>
 
-<script src="app.js"></script>
+<script src="app.js?v={jsver}"></script>
 </body>
 </html>
 '''
@@ -375,6 +382,7 @@ DESC={
  'transformation':'المشكل ديالك: وزن زائد شامل وبغيتي تعالجي كلشي. عمّري المعلومات ديالك وكوتشك غادي توجّهك للپاك المناسب لحالتك.',
 }
 
+CSSVER=_ver('styles.css'); JSVER=_ver('app.js')
 for slug,d in DATA.items():
     offers=[product_only(d['plabel'])] + d['offers']   # choix 1 = produit seul + le reste
     reco=[o for o in offers if o['reco']][0]
@@ -395,7 +403,7 @@ for slug,d in DATA.items():
         products=products_html(d['products']),pinfo=pinfo_section(pinfo_products),
         tiers=''.join(tier_html(o) for o in offers),tiers_mod=tiers_mod,
         life11=d['life'],videos=videos_html(d['vids']),faq=faq_html(d['faq']),
-        reco_now=reco['now'])
+        reco_now=reco['now'],cssver=CSSVER,jsver=JSVER)
     open(os.path.join(OUT,f'p-{slug}.html'),'w',encoding='utf-8').write(html)
     print('wrote p-%s.html (%d offres, reco=%s)'%(slug,len(offers),reco['pname']))
 print('done')
