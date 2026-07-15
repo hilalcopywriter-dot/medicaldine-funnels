@@ -449,13 +449,9 @@ img{content-visibility:auto}
 #offres .tier.sel{background:var(--mint-2)}
 #offres .tier.sel::before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:3px;background:var(--green)}
 #offres .tier-head{display:flex;align-items:center;gap:14px;padding:14px 16px}
-/* Vignette pack : les images des produits du pack, en grille compacte */
-#offres .tier-imgs{flex:none;width:74px;height:74px;background:#f3f6f4;border-radius:12px;padding:5px;display:grid;gap:3px;place-items:center}
-#offres .tier-imgs img{width:100%;height:100%;object-fit:cover;border-radius:7px;min-width:0;min-height:0}
-#offres .tier-imgs[data-count="2"]{grid-template-columns:1fr 1fr}
-#offres .tier-imgs[data-count="3"]{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
-#offres .tier-imgs[data-count="3"] img:first-child{grid-column:1 / span 2}
-#offres .tier-imgs[data-count="4"]{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+/* Vignette pack : packshot transparent qui flotte (sans carré de fond) */
+#offres .tier-imgs{flex:none;width:78px;height:78px;display:flex;align-items:flex-end;justify-content:center}
+#offres .tier-imgs img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 6px 8px rgba(11,46,32,.16))}
 #offres .tier-imgs > svg{width:34px;height:34px;color:var(--green)}
 #offres .tier-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
 #offres .tier-tag{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:700;color:var(--muted)}

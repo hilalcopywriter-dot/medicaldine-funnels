@@ -11,9 +11,9 @@ def _ver(fname):
         return '1'
 
 # Images produit hébergées EN LOCAL (les anciennes URLs medicaldine.ma renvoient 404)
-SHAR='img/prod-shar.jpg'
-CREAM='img/prod-cream.jpg'
-DRINK='img/prod-drink.jpg'
+SHAR='img/prod-shar.png'
+CREAM='img/prod-cream.png'
+DRINK='img/prod-drink.png'
 PACK='https://medicaldine.ma/wp-content/uploads/2025/04/medicaldine-pack2.jpg'
 L7='https://medicaldine.ma/wp-content/uploads/2025/05/medicaldine8-7.jpg'
 L11='https://medicaldine.ma/wp-content/uploads/2025/05/medicaldine8-11.jpg'
@@ -187,12 +187,17 @@ def tier_html(o):
     prod=''.join(prod_li(x) for x in o['comp'])
     ben=''.join(f'<li>{CHK} {x}</li>' for x in o['ben'])
     prods_data='~~'.join(f"{IMGOF.get(x.split(' × ')[-1].strip(),'')}::{x}" for x in o['comp'])
-    # Vignette du pack : une image par produit du pack (grille compacte)
-    pack_names=[x.split(' × ')[-1].strip() for x in o['comp']]
-    pack_imgs=[IMGOF[nm] for nm in pack_names if IMGOF.get(nm)]
-    n_imgs=len(pack_imgs) or 1
-    imgs_html=''.join(f'<img src="{u}" alt="" loading="lazy">' for u in pack_imgs) or BOX
-    thumb_main=f'<div class="tier-imgs" data-count="{n_imgs}">{imgs_html}</div>'
+    # Vignette du pack : packshot composé avec EXACTEMENT les produits du pack (détourés, fond uni)
+    pack_names={x.split(' × ')[-1].strip() for x in o['comp']}
+    PACKSHOT={
+        frozenset({'Shar Slim'}):                                'img/prod-shar.png',
+        frozenset({'Shar Slim','Belly Cream'}):                  'img/pack-shar-cream.png',
+        frozenset({'Shar Slim','Fat Burn Drink'}):               'img/pack-shar-drink.png',
+        frozenset({'Shar Slim','Fat Burn Drink','Belly Cream'}): 'img/pack-trio.png',
+    }
+    thumb_img=PACKSHOT.get(frozenset(pack_names),'img/pack-trio.png')
+    imgs_html=f'<img src="{thumb_img}" alt="{o["pname"]}" loading="lazy">'
+    thumb_main=f'<div class="tier-imgs" data-count="1">{imgs_html}</div>'
     return f'''<div class="tier{cls}" role="button" tabindex="0" aria-pressed="{pressed}" data-pack="{o['pack']}" data-products="{prods_data}">
       <div class="tier-head">
         {thumb_main}
