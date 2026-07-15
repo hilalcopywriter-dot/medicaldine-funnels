@@ -10,9 +10,10 @@ def _ver(fname):
     except OSError:
         return '1'
 
-SHAR='https://medicaldine.ma/wp-content/uploads/2026/05/medicaldine6-1.png'
-CREAM='https://medicaldine.ma/wp-content/uploads/2026/05/Untitled-3-e1777773509158.webp'
-DRINK='https://medicaldine.ma/wp-content/uploads/2026/05/hh-1.png'
+# Images produit hébergées EN LOCAL (les anciennes URLs medicaldine.ma renvoient 404)
+SHAR='img/prod-shar.jpg'
+CREAM='img/prod-cream.jpg'
+DRINK='img/prod-drink.jpg'
 PACK='https://medicaldine.ma/wp-content/uploads/2025/04/medicaldine-pack2.jpg'
 L7='https://medicaldine.ma/wp-content/uploads/2025/05/medicaldine8-7.jpg'
 L11='https://medicaldine.ma/wp-content/uploads/2025/05/medicaldine8-11.jpg'
@@ -212,7 +213,8 @@ def tier_html(o):
     </div>'''
 
 def videos_html(vids):
-    return ''.join(f'<div class="vcard"><video src="{u}" controls preload="metadata" playsinline></video></div>' for u in vids)
+    # #t=0.1 force le navigateur à afficher la 1re image comme miniature (sinon écran noir sur mobile)
+    return ''.join(f'<div class="vcard"><video src="{u}#t=0.1" controls preload="metadata" playsinline></video></div>' for u in vids)
 def faq_html(specific):
     items=specific+FAQ_COMMON; out=''
     for i,(q,a) in enumerate(items):
