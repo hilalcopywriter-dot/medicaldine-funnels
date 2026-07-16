@@ -138,9 +138,9 @@
         nom:nom.value.trim(), tel:normTel(tel.value), ville:ville.value.trim(),
         pack:(packField?packField.value:''), probleme:prob, source:document.title, ts:new Date().toISOString()
       };
-      /* ---- Envoi du lead vers le CRM (API d'ingestion) ---- */
-      var CRM_URL   = 'https://crmsalescopy-production.up.railway.app/api/leads/ingest';
-      var CRM_TOKEN = 'lead_79b33cd21a4743b4a558662fd8f0f4d1';
+      /* ---- Envoi du lead vers le CRM Salescopy (projet Medicaldine) ---- */
+      var CRM_URL   = 'https://app.salescopy.ma/api/leads/ingest';
+      var CRM_TOKEN = 'lead_d67aa8c894504e7c8467bfcca865e94a';
       try{
         fetch(CRM_URL, {
           method: 'POST',
