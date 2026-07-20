@@ -41,7 +41,9 @@
 
   var imgsWrap = document.getElementById('chosen-imgs');
   var descEl = document.getElementById('chosen-desc');
+  var lastProducts = '';
   function openModal(pack, products, desc, title){
+    lastProducts = products || '';
     lastFocus = document.activeElement;
     pack = pack || 'الباقة الموصى بها';
     if(chosenEl) chosenEl.textContent = title || (desc ? 'الكوتش غادي تختار ليك الپاك المناسب' : pack);
@@ -144,6 +146,7 @@
       try{
         fetch(CRM_URL, {
           method: 'POST',
+          keepalive: true,
           headers: { 'Authorization': 'Bearer ' + CRM_TOKEN, 'Content-Type': 'application/json' },
           body: JSON.stringify({
             nom: data.nom,
@@ -159,10 +162,10 @@
           .catch(function(err){ console.warn('CRM ingest failed', err); });
       }catch(e){ console.warn('CRM ingest error', e); }
       console.log('LEAD', data);
-      if(window.fbq) try{ fbq('track','Lead',{content_name:data.pack}); }catch(e){}
-      var uname = data.nom.split(' ')[0] || data.nom;
-      card.querySelectorAll('.uname').forEach(function(el){ el.textContent = uname; });
-      card.classList.add('done'); card.scrollTop = 0;
+      /* Sauvegarde pour la page de remerciement (nom, pack, produits) puis redirection.
+         L'événement pixel "Lead" est déclenché sur /merci/ (page de conversion). */
+      try{ localStorage.setItem('md_lead', JSON.stringify({nom:data.nom, pack:data.pack, products:lastProducts})); }catch(e){}
+      window.location.href = 'merci/';
     });
   }
 
